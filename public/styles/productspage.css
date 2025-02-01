@@ -28,7 +28,7 @@ nav .logo p {
 }
 .content .product-info {
   height: auto;
-  width: 98%;
+  max-width: 800px;
   border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +36,7 @@ nav .logo p {
   margin-top: 30px;
 }
 .content .product-info .image {
-  height: 190px;
+  height: 200px;
   width: 30%;
   margin-right: 20px;
 }
@@ -45,6 +45,7 @@ nav .logo p {
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
+  box-shadow: 1px 1px 3px;
 }
 .content .product-info .info {
   padding: 5px;
@@ -54,16 +55,22 @@ nav .logo p {
   line-height: 200%;
 }
 .content .price {
-  width: 100%;
+  width: 800px;
   height: 100px;
   font-family: "Nunito", serif;
   font-size: 30px;
   color: blue;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .content .price p {
   margin-left: 40px;
+  border-radius: 10px;
+  height: 60px;
+  width: 140px;
+  text-align: center;
+  line-height: 60px;
+  box-shadow: 2px 2px 3px;
 }
 .content .price button {
   margin-right: 40px;
@@ -72,7 +79,7 @@ nav .logo p {
   border: 2px solid aqua;
   border-radius: 10px;
   position: relative;
-  top: 17px;
+  top: 30px;
   box-shadow: 2px 2px 5px aqua;
   font-family: "Nunito", serif;
   font-weight: 700;
@@ -86,4 +93,25 @@ nav .logo p {
   box-shadow: 2px 2px 5px rgb(0, 96, 160);
   background: aqua;
   color: black;
+}
+.content .name {
+  height: 55px;
+  width: 800px;
+  color: blue;
+  font-family: "Nunito", serif;
+  font-size: 30px;
+  margin-left: 20px;
+}
+.content .remaining {
+  height: 55px;
+  width: 800px;
+  font-family: "Nunito", serif;
+  font-size: 20px;
+  margin-left: 20px;
+  color: blue;
+}
+.content .remaining .get {
+  color: black;
+  font-size: medium;
+  margin-top: -15px;
 }

@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
     });
     const [results, field] = await connection.query("select * from products");
 
-    res.render("index", { results });
+    res.render("index", { results, title: "All you can buy" });
   }
 
   main();

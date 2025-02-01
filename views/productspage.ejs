@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title><%= result.product_name%></title>
     <link rel="stylesheet" href="/styles/productspage.css" />
   </head>
   <body>
@@ -21,6 +21,17 @@
           blanditiis dolore neque hic nemo repudiandae obcaecati sint sit
           suscipit?
         </div>
+      </div>
+      <div class="name">
+        <p><%= result.product_name%></p>
+      </div>
+      <div class="remaining">
+        <% if(result.no_remaining > 0){ %>
+        <p>Remaining: <%= result.no_remaining%></p>
+        <p class="get">Get them while you still can</p>
+        <% } else { %>
+        <p class="sold-out">SOLD OUT</p>
+        <% } %>
       </div>
       <div class="price">
         <p>$ <%=result.price%></p>
