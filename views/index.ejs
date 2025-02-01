@@ -56,10 +56,19 @@
             <div class="price">$<%= result.price %></div>
           </div>
         </div>
+
         <%}%> <%}%>
       </main>
     </div>
 
-    <script></script>
+    <script>
+      //add event listener for each product
+      const products = document.getElementsByClassName("product");
+      Array.from(products).forEach((product) => {
+        product.addEventListener("click", () => {
+          window.location.href = "/" + product.getAttribute("id");
+        });
+      });
+    </script>
   </body>
 </html>

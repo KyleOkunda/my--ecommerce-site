@@ -26,3 +26,23 @@ app.get("/", (req, res) => {
 
   main();
 });
+
+app.get("/:prodid", (req, res) => {
+  let prodid = req.params.prodid;
+
+  async function main() {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      database: "ecommerce",
+      password: "KyleMuse@08",
+    });
+    const [results, field] = await connection.query(
+      "select * from products where productId = ?",
+      [prodid]
+    );
+
+    res.render("productspage", { result: results[0] });
+  }
+  main();
+});

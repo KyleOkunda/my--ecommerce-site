@@ -162,7 +162,7 @@ main .product .prod-info {
   margin-left: 10px;
   font-family: "Nunito", serif;
 }
-main .product .prod-info .name {
+main .product .prod-info .prod-name {
   font-weight: 600;
   font-size: 17px;
   color: red;

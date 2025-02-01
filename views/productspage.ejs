@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/productspage.css" />
+  </head>
+  <body>
+    <div class="content">
+      <nav>
+        <div class="logo"><p>Kyle</p></div>
+      </nav>
+      <div class="product-info">
+        <div class="image">
+          <img src="/images/<%=result.prod_image_loc%>" alt="Amazing product" />
+        </div>
+        <div class="info">
+          These are amazing <%= result.product_name %> <br />
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam autem
+          blanditiis dolore neque hic nemo repudiandae obcaecati sint sit
+          suscipit?
+        </div>
+      </div>
+      <div class="price">
+        <p>$ <%=result.price%></p>
+        <button>Add to cart</button>
+      </div>
+    </div>
+  </body>
+</html>
