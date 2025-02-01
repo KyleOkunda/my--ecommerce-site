@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Quicksand:wght@300..700&display=swap");
+html {
+  overscroll-behavior: none;
+}
+body {
+  overscroll-behavior: none;
+}
+nav {
+  background: linear-gradient(135deg, aqua, rgb(0, 47, 255));
+  box-shadow: 2px 2px 5px;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  top: -25px;
+}
+nav p {
+  line-height: 80px;
+  margin-left: 10px;
+  font-size: xx-large;
+  font-family: "Pacifico", sans-serif;
+  color: rgb(0, 96, 160);
+}
+.content .welcome {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: larger;
+}
+.content .welcome p {
+  color: rgb(2, 119, 173);
+}
+.content .welcome p span {
+  font-size: 40px;
+  font-style: italic;
+  color: blue;
+}
+.content .form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content .form form {
+  border: 2px solid rgb(104, 252, 252);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  background: whitesmoke;
+}
+
+.content .form form .sign-in-info {
+  display: none;
+}
+.content .form form label {
+  display: inline-block;
+  width: 70px;
+}
+.content .form form input {
+  background: whitesmoke;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid blue;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 250px;
+  margin-left: 10px;
+  padding: 5px;
+  padding-left: 15px;
+  font-family: "Nunito", serif;
+  letter-spacing: 1.2px;
+}
+.content .form form input:focus {
+  outline: none;
+}
+.content .form form p {
+  margin: 30px;
+}
+.content .form form .head {
+  padding: 0;
+  margin: 0;
+  font-size: xx-large;
+  color: blue;
+}
+.content .form form button {
+  height: 50px;
+  width: 75px;
+  border: 1px solid aqua;
+  border-radius: 5px;
+  background: rgb(0, 183, 255);
+  font-family: "Nunito", serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+.content .form .sign-in,
+.sign-up,
+.use-email,
+.use-username {
+  color: blue;
+  text-decoration: underline;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.content .form form .switch {
+  float: left;
+}
+.content .form form .switch p {
+  float: left;
+}
+
+.content .form form .info {
+  display: none;
+  color: red;
+  font-size: small;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  bottom: 20px;
+  margin-bottom: -30px;
+}

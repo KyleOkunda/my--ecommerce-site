@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up | Sign in</title>
+    <link rel="stylesheet" href="/signin.css" />
+  </head>
+  <body>
+    <div class="content">
+      <nav><p>Kyle</p></nav>
+      <div class="welcome">
+        <p><span>Welcome.</span> <br />Shop with us.</p>
+      </div>
+      <div class="form">
+        <form action="">
+          <div class="sign-up-info">
+            <p class="head">Sign Up</p>
+            <p>
+              <label for="username">Username: </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                maxlength="20"
+                placeholder="Enter username..."
+                required
+              />
+            </p>
+            <p class="username-info info"></p>
+            <p>
+              <label for="email">Email: </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Enter email..."
+                required
+              />
+            </p>
+            <p>
+              <label for="password">Password: </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                minlength="6"
+                placeholder="Enter your password..."
+                required
+              />
+            </p>
+            <p>
+              <label for="confirm-password">Confirm Password: </label>
+              <input
+                id="confirm-password"
+                name="confirm-password"
+                minlength="6"
+                type="password"
+                placeholder="Confirm your password..."
+                required
+              />
+            </p>
+            <p class="confirm-password-info info"></p>
+            <p>
+              <button>Sign up</button>
+            </p>
+            <p class="switch">
+              Have an account? <span class="sign-in">Sign in instead</span>
+            </p>
+          </div>
+          <div class="sign-in-info">
+            <p class="head">Sign In</p>
+            <p>
+              <label id="lblusernameSignin" for="usernameSignin"
+                >Username:
+              </label>
+              <input
+                id="usernameSignin"
+                name="usernameSignin"
+                type="text"
+                maxlength="20"
+                placeholder="Enter username or email..."
+                required
+              />
+            </p>
+            <p>
+              <label for="password">Password: </label>
+              <input
+                id="passwordSignin"
+                name="passwordSignin"
+                type="password"
+                minlength="6"
+                placeholder="Enter your password..."
+                required
+              />
+            </p>
+
+            <p>
+              <button>Sign in</button>
+            </p>
+            <div class="switch">
+              <p>Don't have an account? <span class="sign-up">Sign up</span></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const username = document.getElementById("username");
+      const usernameInfo = document.getElementsByClassName("username-info")[0];
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const confirmPass = document.getElementById("confirm-password");
+      const confirmInfo = document.getElementsByClassName(
+        "confirm-password-info"
+      )[0];
+      const signin = document.getElementsByClassName("sign-in")[0];
+      const signup = document.getElementsByClassName("sign-up")[0];
+      const signinInfo = document.getElementsByClassName("sign-in-info")[0];
+      const signupInfo = document.getElementsByClassName("sign-up-info")[0];
+      const useemail = document.getElementsByClassName("use-email")[0];
+
+      // Validate the username, cannot start with a number
+      username.addEventListener("input", () => {
+        if (username.value == "") {
+          username.setAttribute("maxlength", "20");
+          usernameInfo.textContent = "";
+          usernameInfo.style.display = "none";
+        } else if (!isNaN(username.value.charAt(0))) {
+          usernameInfo.textContent = " >> First character cannot be a number.";
+          usernameInfo.style.display = "block";
+          username.setAttribute("maxlength", "1");
+        } else if (username.value.length > 10) {
+          username.setAttribute("maxlength", "20");
+          usernameInfo.textContent = " >> You have reached max characters.";
+          usernameInfo.style.display = "block";
+        } else {
+          usernameInfo.textContent = "";
+          usernameInfo.style.display = "none";
+        }
+      });
+
+      //Validate the confirmed password, must be equal to the password
+      confirmPass.addEventListener("input", () => {
+        if (password.value != confirmPass.value) {
+          confirmInfo.textContent = ">> Passwords do not match";
+          confirmInfo.style.display = "block";
+        } else {
+          confirmInfo.style.display = "none";
+        }
+      });
+
+      //Switch between signing in and signing up
+      signin.addEventListener("click", () => {
+        signupInfo.style.display = "none";
+        signupInfo.setAttribute("disabled", "");
+        signinInfo.style.display = "block";
+        signinInfo.removeAttribute("disabled");
+      });
+
+      //Switch between signing in and signing up
+      signup.addEventListener("click", () => {
+        signinInfo.style.display = "none";
+        signinInfo.setAttribute("disabled", "");
+        signupInfo.style.display = "block";
+        signupInfo.removeAttribute("disabled");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Quicksand:wght@300..700&display=swap");
+s html {
+  overscroll-behavior: none;
+}
+body {
+  overscroll-behavior: none;
+}
+nav {
+  background: linear-gradient(135deg, aqua, rgb(0, 47, 255));
+  box-shadow: 2px 2px 5px;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+nav .logo {
+  margin-left: 10px;
+  font-size: xx-large;
+  font-family: "Pacifico", sans-serif;
+  color: rgb(0, 96, 160);
+}
+nav .logo p {
+  position: relative;
+  bottom: 22px;
+}
+nav .buttons {
+  margin-right: 15px;
+}
+nav .buttons button {
+  position: relative;
+  top: 23px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  font-size: medium;
+  border: 2px solid aqua;
+  border-radius: 10px;
+  background: transparent;
+  color: white;
+  height: 34px;
+  width: 130px;
+  transition: 800ms;
+}
+nav .buttons button:hover {
+  background: aqua;
+  color: rgb(0, 3, 160);
+}
+nav .search input {
+  margin: 2px;
+  position: relative;
+  top: 15px;
+  height: 40px;
+  width: 220px;
+  border: 2px solid aqua;
+  border-radius: 25px;
+  padding: 15px;
+  font-family: "Nunito", serif;
+  font-size: 15px;
+}
+nav .search input:focus {
+  outline: none;
+}
+
+aside {
+  background-color: whitesmoke;
+  border-radius: 10px;
+  width: 200px;
+  height: 100px;
+  margin: 4px;
+  box-shadow: 1px 2px 8px;
+  text-align: center;
+}
+aside h1 {
+  text-align: center;
+  font-family: "Nunito", serif;
+  text-decoration: underline;
+  color: rgb(0, 47, 255);
+}
+
+aside select {
+  margin: 0;
+  position: relative;
+  bottom: 15px;
+  height: 38px;
+  width: 150px;
+  border: 2px solid aqua;
+  border-radius: 10px;
+  padding: 8px;
+  font-family: "Nunito", serif;
+  font-weight: 500;
+  font-size: medium;
+  background: rgb(203, 255, 238);
+  color: rgb(0, 47, 255);
+}
+aside select :focus {
+  outline: none;
+}
+aside .icon {
+  z-index: 1;
+  position: relative;
+  top: 100px;
+}
+aside option {
+  height: 32px;
+  width: 122px;
+  padding: 5px;
+  border: 2px solid aqua;
+}
+aside hr {
+  border: 2px solid aquamarine;
+}
+.cart {
+  float: right;
+  position: relative;
+  bottom: 80px;
+  right: 40px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  box-shadow: 1px 1px 3px;
+}
+.cart .fa-solid {
+  position: relative;
+  top: 17px;
+  left: 15px;
+}
+hr {
+  margin-top: 10px;
+}
+main {
+  margin: 4px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main .product {
+  height: 350px;
+  width: 250px;
+  box-shadow: 1px 1px 3px;
+  border-radius: 5px;
+  transition: 500ms;
+  margin: 20px;
+}
+main .product:hover {
+  transform: scale(1.1);
+  box-shadow: 2px 2px 10px rgb(0, 174, 255);
+}
+main .product .image {
+  height: 70%;
+  width: 100%;
+}
+main .product .image img {
+  width: inherit;
+  height: 100%;
+  border-radius: 5px;
+}
+main .product .prod-info {
+  height: 25%;
+  width: 90%;
+  padding: 2%;
+  margin-left: 10px;
+  font-family: "Nunito", serif;
+}
+main .product .prod-info .name {
+  font-weight: 600;
+  font-size: 17px;
+  color: red;
+}
+main .product .prod-info .remaining {
+  font-size: 15px;
+}
+main .product .prod-info .price {
+  font-size: 25px;
+  color: blue;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All you can buy</title>
+    <link rel="stylesheet" href="/index.css" />
+    <script
+      src="https://kit.fontawesome.com/f451cfc2d6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="content">
+      <nav>
+        <div class="logo"><p>Kyle</p></div>
+        <div class="search">
+          <input
+            id="searchbar"
+            type="search"
+            placeholder="Search products here..."
+          />
+        </div>
+        <div class="buttons">
+          <button>Sign in/ Sign up</button>
+        </div>
+      </nav>
+      <div class="cat-cart">
+        <aside>
+          <h1>Categories.</h1>
+
+          <select>
+            <option value="shoes">Shoes</option>
+            <hr />
+            <option value="jewellery">Jewellery</option>
+            <hr />
+            <option value="clothes">Clothes</option>
+          </select>
+        </aside>
+        <div class="cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+      </div>
+      <hr />
+      <main>
+        function hyphenate(str) { str.toLowerCase; let newstr = str.replace(" ",
+        "-"); if (newstr.includes(" ")) { hyphenate(newstr); } else { return
+        newstr; } } <% if(results.length > 0){%> <%for(const result of results
+        ){%>
+
+        <div class="product">
+          <div class="image">
+            <img src="<%=result.prod_image_loc%>" alt="Good stuff" />
+          </div>
+
+          <div class="prod-info">
+            <div class="prod-name"><%= result.product_name %></div>
+            <div class="remaining">Remaining: <%= result.no_remaining %></div>
+            <div class="price">$<%= result.price %></div>
+          </div>
+        </div>
+
+        <%}%> <%}%>
+      </main>
+    </div>
+
+    <script>
+      const names = document.getElementsByClassName("prod-name");
+      var namesList = [];
+      Array.from(names).forEach((element) => {
+        namesList.unshift(element.innerText);
+      });
+
+      const search = document.getElementById("searchbar");
+
+      search.addEventListener("input", () => {
+        let products = document.getElementsByClassName("product");
+      });
+    </script>
+  </body>
+</html>
