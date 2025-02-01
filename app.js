@@ -20,7 +20,6 @@ app.get("/", (req, res) => {
       password: "KyleMuse@08",
     });
     const [results, field] = await connection.query("select * from products");
-    console.log(results);
 
     res.render("index", { results });
   }

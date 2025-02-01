@@ -43,12 +43,9 @@
       </div>
       <hr />
       <main>
-        function hyphenate(str) { str.toLowerCase; let newstr = str.replace(" ",
-        "-"); if (newstr.includes(" ")) { hyphenate(newstr); } else { return
-        newstr; } } <% if(results.length > 0){%> <%for(const result of results
-        ){%>
+        <% if(results.length > 0){%> <%for(const result of results ){%>
 
-        <div class="product">
+        <div class="product" id="<%= result.productId %>">
           <div class="image">
             <img src="<%=result.prod_image_loc%>" alt="Good stuff" />
           </div>
@@ -59,23 +56,10 @@
             <div class="price">$<%= result.price %></div>
           </div>
         </div>
-
         <%}%> <%}%>
       </main>
     </div>
 
-    <script>
-      const names = document.getElementsByClassName("prod-name");
-      var namesList = [];
-      Array.from(names).forEach((element) => {
-        namesList.unshift(element.innerText);
-      });
-
-      const search = document.getElementById("searchbar");
-
-      search.addEventListener("input", () => {
-        let products = document.getElementsByClassName("product");
-      });
-    </script>
+    <script></script>
   </body>
 </html>
