@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Quicksand:wght@300..700&display=swap");
+nav {
+  background: linear-gradient(135deg, aqua, rgb(0, 47, 255));
+  box-shadow: 2px 2px 5px;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+nav .logo {
+  margin-left: 10px;
+  font-size: xx-large;
+  font-family: "Pacifico", sans-serif;
+  color: rgb(0, 96, 160);
+}
+nav p {
+  position: relative;
+  bottom: 22px;
+}
+nav .cart {
+  margin-right: 10px;
+  font-size: xx-large;
+  font-family: "Pacifico", sans-serif;
+  color: aqua;
+}
+main {
+  text-align: center;
+}
+
+.empty {
+  color: blue;
+  font-family: "Nunito", serif;
+  font-size: xx-large;
+}
+.content .product-info {
+  height: auto;
+  max-width: 800px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  margin-top: 30px;
+  border: 1px solid aqua;
+  box-shadow: 2px 2px 3px rgb(0, 96, 160);
+}
+.content .product-info .image {
+  height: 200px;
+  width: 30%;
+  margin-right: 20px;
+}
+.content .product-info .image img {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 1px 1px 3px;
+}
+.content .product-info .info {
+  padding: 5px;
+  font-family: "Nunito", serif;
+  height: 100%;
+  width: 60%;
+}
+.name,
+.price,
+.quantity,
+.buy {
+  width: 100%;
+}
+.name {
+  color: blue;
+  font-size: xx-large;
+}
+.price {
+  color: rgb(0, 119, 255);
+  font-size: xx-large;
+}
+.buy button {
+  height: 45px;
+  width: 100px;
+  margin-top: 5px;
+  border: 2px solid aqua;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px aqua;
+  font-family: "Nunito", serif;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 5px;
+  color: rgb(0, 16, 160);
+  transition: 500ms;
+}
+.buy button:hover {
+  border: 2px solid rgb(0, 96, 160);
+  box-shadow: 2px 2px 5px rgb(0, 96, 160);
+  background: aqua;
+  color: black;
+}
+.total {
+  font-size: x-large;
+}
+.total .blue {
+  color: blue;
+}

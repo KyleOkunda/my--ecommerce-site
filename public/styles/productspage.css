@@ -26,6 +26,28 @@ nav .logo p {
   position: relative;
   bottom: 22px;
 }
+
+.cart {
+  position: relative;
+  top: 12px;
+  background: whitesmoke;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  box-shadow: 1px 1px 3px;
+  transition: 800ms;
+  margin-right: 50px;
+}
+
+.cart .fa-solid {
+  position: relative;
+  top: 17px;
+  left: 15px;
+}
+.cart:hover {
+  background: aqua;
+}
+
 .content .product-info {
   height: auto;
   max-width: 800px;
@@ -55,7 +77,7 @@ nav .logo p {
   line-height: 200%;
 }
 .content .price {
-  width: 800px;
+  max-width: 800px;
   height: 100px;
   font-family: "Nunito", serif;
   font-size: 30px;
@@ -96,7 +118,7 @@ nav .logo p {
 }
 .content .name {
   height: 55px;
-  width: 800px;
+  max-width: 800px;
   color: blue;
   font-family: "Nunito", serif;
   font-size: 30px;
@@ -104,7 +126,7 @@ nav .logo p {
 }
 .content .remaining {
   height: 55px;
-  width: 800px;
+  max-width: 800px;
   font-family: "Nunito", serif;
   font-size: 20px;
   margin-left: 20px;
@@ -114,4 +136,18 @@ nav .logo p {
   color: black;
   font-size: medium;
   margin-top: -15px;
+}
+.content .remaining #quantity {
+  float: right;
+  width: 60px;
+  height: 25px;
+  margin-right: 90px;
+  position: relative;
+  bottom: 64px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+}
+.content .remaining #quantity:focus {
+  outline: none;
 }

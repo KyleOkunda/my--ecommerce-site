@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/styles/cart.css" />
+    <script
+      src="https://kit.fontawesome.com/f451cfc2d6.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="content">
+      <nav>
+        <div class="logo"><p>Kyle</p></div>
+        <div class="cart">
+          <p>Your Cart</p>
+        </div>
+      </nav>
+      <main>
+        <div class="cartstuff">
+          <% if(results.length > 0){ %> <% for(const result of results){ %> <%
+          let total = result.quantity * result.price %>
+          <div class="product-info" id="<%=result.productId%>">
+            <div class="image">
+              <img src="<%=result.prod_image_loc%>" alt="Amazing product" />
+            </div>
+            <div class="info">
+              <div class="name"><%=result.product_name%></div>
+              <div class="price">$<%=result.price%></div>
+              <div class="quantity">Quantity: <%=result.quantity%></div>
+              <div class="total">
+                <p>
+                  Total:
+                  <span class="blue"
+                    >$<span class="totalprice"><%=total%></span></span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <% } %> <% } else{ %>
+          <p class="empty">Cart is empty :(</p>
+          <%}%>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -69,6 +69,12 @@
           window.location.href = "/" + product.getAttribute("id");
         });
       });
+
+      //add event listener for shopping cart
+      const cart = document.getElementsByClassName("cart")[0];
+      cart.addEventListener("click", () => {
+        window.location.href = "/cart";
+      });
     </script>
   </body>
 </html>

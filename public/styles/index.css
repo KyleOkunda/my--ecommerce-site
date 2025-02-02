@@ -119,11 +119,15 @@ aside hr {
   height: 50px;
   width: 50px;
   box-shadow: 1px 1px 3px;
+  transition: 800ms;
 }
 .cart .fa-solid {
   position: relative;
   top: 17px;
   left: 15px;
+}
+.cart:hover {
+  background: aqua;
 }
 hr {
   margin-top: 10px;

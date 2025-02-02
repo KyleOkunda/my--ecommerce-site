@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= result.product_name%></title>
     <link rel="stylesheet" href="/styles/productspage.css" />
+    <script
+      src="https://kit.fontawesome.com/f451cfc2d6.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="content">
       <nav>
         <div class="logo"><p>Kyle</p></div>
+        <div class="cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
       </nav>
-      <div class="product-info">
+      <div class="product-info" id="<%=result.productId%>">
         <div class="image">
           <img src="/images/<%=result.prod_image_loc%>" alt="Amazing product" />
         </div>
@@ -23,20 +30,73 @@
         </div>
       </div>
       <div class="name">
-        <p><%= result.product_name%></p>
+        <p class="itemname"><%= result.product_name%></p>
       </div>
       <div class="remaining">
         <% if(result.no_remaining > 0){ %>
         <p>Remaining: <%= result.no_remaining%></p>
         <p class="get">Get them while you still can</p>
+        <input
+          id="quantity"
+          type="number"
+          min="0"
+          max="<%=result.no_remaining%>"
+        />
         <% } else { %>
         <p class="sold-out">SOLD OUT</p>
         <% } %>
       </div>
       <div class="price">
-        <p>$ <%=result.price%></p>
-        <button>Add to cart</button>
+        <p>$ <span class="itemprice"><%=result.price%></span></p>
+        <button id="add-to-cart">Add to cart</button>
       </div>
     </div>
+
+    <script>
+      //add event listener for shopping cart
+      const cart = document.getElementsByClassName("cart")[0];
+      cart.addEventListener("click", () => {
+        window.location.href = "/cart";
+      });
+
+      //Initiate a post request to add data to the cart
+      const prodid = parseInt(
+        document.getElementsByClassName("product-info")[0].getAttribute("id")
+      );
+      const prodName =
+        document.getElementsByClassName("itemname")[0].textContent;
+      const imageLoc = document
+        .getElementsByTagName("img")[0]
+        .getAttribute("src");
+      const price = parseInt(
+        document.getElementsByClassName("itemprice")[0].textContent
+      );
+
+      let quantity = null;
+      const input = document.getElementById("quantity");
+      const addToCart = document.getElementById("add-to-cart");
+
+      input.addEventListener("input", () => {
+        quantity = +input.value;
+      });
+
+      addToCart.addEventListener("click", () => {
+        if (quantity >= 1) {
+          fetch("/cart", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              prodid,
+              prodName,
+              imageLoc,
+              price,
+              quantity,
+            }),
+          });
+        } else {
+          alert("Please enter the quantity");
+        }
+      });
+    </script>
   </body>
 </html>
