@@ -12,6 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+var signIn = false;
+app.use((req, res) => {
+  signIn = true;
+  console.log(signIn);
+});
+
 app.get("/", (req, res) => {
   async function main() {
     const connection = await mysql.createConnection({
@@ -61,6 +67,23 @@ app.post("/cart", (req, res) => {
       data.price,
       data.quantity,
     ]);
+  }
+  main();
+});
+
+app.delete("/cart", (req, res) => {
+  async function main() {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      database: "ecommerce",
+      password: "KyleMuse@08",
+    });
+
+    await connection.query("delete from cart where productId = ?", [
+      req.body.id,
+    ]);
+    res.json({ redirect: "/cart" });
   }
   main();
 });

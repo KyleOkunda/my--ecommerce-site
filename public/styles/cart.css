@@ -25,6 +25,13 @@ nav .cart {
   font-family: "Pacifico", sans-serif;
   color: aqua;
 }
+section {
+  margin: 10px;
+  margin-top: 20px;
+}
+section p {
+  font-size: larger;
+}
 main {
   text-align: center;
 }
@@ -43,7 +50,12 @@ main {
   margin: 10px;
   margin-top: 30px;
   border: 1px solid aqua;
+  border-left: none;
+  border-top: none;
   box-shadow: 2px 2px 3px rgb(0, 96, 160);
+}
+.content .product-info input {
+  margin: 5px;
 }
 .content .product-info .image {
   height: 200px;
@@ -62,6 +74,18 @@ main {
   font-family: "Nunito", serif;
   height: 100%;
   width: 60%;
+}
+.delete {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 3px black;
+  float: right;
+}
+.delete .fa-trash {
+  position: relative;
+  top: 10px;
+  left: 1px;
 }
 .name,
 .price,
@@ -100,6 +124,7 @@ main {
 .total {
   font-size: x-large;
 }
-.total .blue {
+.blue {
+  font-size: x-large;
   color: blue;
 }

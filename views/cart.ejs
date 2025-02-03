@@ -18,15 +18,28 @@
           <p>Your Cart</p>
         </div>
       </nav>
+      <section>
+        <div>
+          <p>
+            Total for all:
+            <span class="blue"> $<span id="totalforall"></span></span>
+          </p>
+          <div class="buy"><button id="buybtn">Buy</button></div>
+        </div>
+      </section>
       <main>
         <div class="cartstuff">
           <% if(results.length > 0){ %> <% for(const result of results){ %> <%
           let total = result.quantity * result.price %>
+
           <div class="product-info" id="<%=result.productId%>">
             <div class="image">
               <img src="<%=result.prod_image_loc%>" alt="Amazing product" />
             </div>
             <div class="info">
+              <div class="delete" id="<%=result.productId%>">
+                <i class="fa-solid fa-trash"></i>
+              </div>
               <div class="name"><%=result.product_name%></div>
               <div class="price">$<%=result.price%></div>
               <div class="quantity">Quantity: <%=result.quantity%></div>
@@ -46,5 +59,48 @@
         </div>
       </main>
     </div>
+
+    <script>
+      const totalforall = document.getElementById("totalforall");
+      const priceList = document.getElementsByClassName("totalprice");
+      var sum = null;
+      for (const itemprice of Array.from(priceList)) {
+        sum = sum + +itemprice.textContent;
+      }
+      if (priceList) {
+        totalforall.innerText = sum;
+      } else {
+        totalforall.innerText = 0;
+      }
+
+      //Add event listener for delete
+      const deleteList = Array.from(document.getElementsByClassName("delete"));
+      deleteList.forEach((deleteicon) => {
+        deleteicon.addEventListener("click", () => {
+          let id = parseInt(deleteicon.getAttribute("id"));
+          fetch("/cart", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id }),
+          })
+            .then((Result) => Result.json())
+            .then((data) => {
+              window.location.href = data.redirect;
+            });
+        });
+      });
+      //Add event listener for the buy button
+      const buybtn = document.getElementById("buybtn");
+      let totalprice = parseInt(totalforall.textContent);
+      buybtn.addEventListener("click", () => {
+        if (!isNaN(totalprice)) {
+          alert("Pay $" + totalprice);
+        } else {
+          alert("Nothing to buy");
+        }
+      });
+    </script>
   </body>
 </html>
