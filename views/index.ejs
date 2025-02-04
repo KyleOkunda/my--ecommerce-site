@@ -22,7 +22,7 @@
           />
         </div>
         <div class="buttons">
-          <button>Sign in/ Sign up</button>
+          <button id="signInBtn">Sign in/ Sign up</button>
         </div>
       </nav>
       <div class="cat-cart">
@@ -74,6 +74,12 @@
       const cart = document.getElementsByClassName("cart")[0];
       cart.addEventListener("click", () => {
         window.location.href = "/cart";
+      });
+
+      //Add event listener for the sign in button
+      const signinbtn = document.getElementById("signInBtn");
+      signinbtn.addEventListener("click", () => {
+        window.location.href = "/signIn";
       });
     </script>
   </body>

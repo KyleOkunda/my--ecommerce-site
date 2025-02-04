@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+    <link rel="stylesheet" href="/styles/signin.css" />
+  </head>
+  <body>
+    <div class="content">
+      <nav><p>Kyle</p></nav>
+      <div class="welcome">
+        <p><span>Welcome.</span> <br />Shop with us.</p>
+      </div>
+      <div class="form">
+        <form action="/signUp" method="post">
+          <div id="resinfo" style="color: red"></div>
+          <div class="sign-up-info">
+            <p class="head">Sign Up</p>
+            <p>
+              <label for="username">Username: </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                maxlength="20"
+                placeholder="Enter username..."
+                required
+              />
+            </p>
+            <p class="username-info info"></p>
+            <p>
+              <label for="email">Email: </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Enter email..."
+                required
+              />
+            </p>
+            <p>
+              <label for="password">Password: </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                minlength="6"
+                placeholder="Enter your password..."
+                required
+              />
+            </p>
+            <p>
+              <label for="confirmpassword">Confirm Password: </label>
+              <input
+                id="confirmpassword"
+                name="confirmpassword"
+                minlength="6"
+                type="password"
+                placeholder="Confirm your password..."
+                required
+              />
+            </p>
+            <p class="confirm-password-info info"></p>
+            <p>
+              <button id="sign-up-btn">Sign up</button>
+            </p>
+            <p class="switch">
+              Have an account? <span class="sign-in">Sign in instead</span>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const username = document.getElementById("username");
+      const usernameInfo = document.getElementsByClassName("username-info")[0];
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const confirmPass = document.getElementById("confirmpassword");
+      const confirmInfo = document.getElementsByClassName(
+        "confirm-password-info"
+      )[0];
+      const signin = document.getElementsByClassName("sign-in")[0];
+      const signup = document.getElementsByClassName("sign-up")[0];
+      const signUpBtn = document.getElementById("sign-up-btn");
+      const resinfo = document.getElementById("resinfo");
+
+      // Validate the username, cannot start with a number
+      username.addEventListener("input", () => {
+        if (username.value == "") {
+          username.setAttribute("maxlength", "20");
+          usernameInfo.textContent = "";
+          usernameInfo.style.display = "none";
+        } else if (!isNaN(username.value.charAt(0))) {
+          usernameInfo.textContent = " >> First character cannot be a number.";
+          usernameInfo.style.display = "block";
+          username.setAttribute("maxlength", "1");
+        } else if (username.value.length > 10) {
+          username.setAttribute("maxlength", "20");
+          usernameInfo.textContent = " >> You have reached max characters.";
+          usernameInfo.style.display = "block";
+        } else {
+          usernameInfo.textContent = "";
+          usernameInfo.style.display = "none";
+        }
+      });
+
+      //Validate the confirmed password, must be equal to the password
+      confirmPass.addEventListener("input", () => {
+        if (password.value != confirmPass.value) {
+          confirmInfo.textContent = ">> Passwords do not match";
+          confirmInfo.style.display = "block";
+        } else {
+          confirmInfo.style.display = "none";
+        }
+      });
+
+      //Switch to signing up
+      signin.addEventListener("click", () => {
+        window.location.href = "/signIn";
+      });
+      //Fetch the response from the server
+      signUpBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        fetch("/signUp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: document.getElementById("username").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+          }),
+        })
+          .then((Response) => Response.json())
+          .then((data) => {
+            resinfo.textContent = data.resmessage;
+          });
+      });
+    </script>
+  </body>
+</html>

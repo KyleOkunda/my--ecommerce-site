@@ -1,6 +1,7 @@
 const express = require("express");
 const ejs = require("ejs");
 const mysql = require("mysql2/promise");
+const bcrypt = require("bcrypt");
 
 const app = express();
 app.listen(3001);
@@ -11,12 +12,6 @@ app.set("views", "views");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
-var signIn = false;
-app.use((req, res) => {
-  signIn = true;
-  console.log(signIn);
-});
 
 app.get("/", (req, res) => {
   async function main() {
@@ -31,6 +26,51 @@ app.get("/", (req, res) => {
     res.render("index", { results, title: "All you can buy" });
   }
 
+  main();
+});
+
+app.get("/signUp", (req, res) => {
+  res.render("signup");
+});
+
+app.get("/signIn", (req, res) => {
+  res.render("signin");
+});
+
+app.post("/signUp", (req, res) => {
+  async function main() {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      database: "ecommerce",
+      password: "KyleMuse@08",
+    });
+
+    let hashedPassword = await bcrypt.hash(req.body.password, 12);
+
+    try {
+      const [isEmailExist] = await connection.query(
+        "select case when exists(select 1 from customers where email = ?) then 'true' else 'false' end as emailExists",
+        [req.body.email]
+      );
+
+      if (isEmailExist[0].emailExists == "false") {
+        await connection.query(
+          "insert into customers(username, email, cust_password) value(?, ?, ?)",
+          [req.body.username, req.body.email, hashedPassword]
+        );
+
+        res.json({
+          resmessage:
+            "Successfully signed in, please log in with your credentials",
+        });
+      } else {
+        res.json({ resmessage: "Account already exists!" });
+      }
+    } catch (err) {
+      console.log(err.sqlMessage);
+    }
+  }
   main();
 });
 

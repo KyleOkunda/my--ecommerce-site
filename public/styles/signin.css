@@ -49,9 +49,6 @@ nav p {
   background: whitesmoke;
 }
 
-.content .form form .sign-in-info {
-  display: none;
-}
 .content .form form label {
   display: inline-block;
   width: 70px;
