@@ -97,7 +97,7 @@
           usernameInfo.textContent = " >> First character cannot be a number.";
           usernameInfo.style.display = "block";
           username.setAttribute("maxlength", "1");
-        } else if (username.value.length > 10) {
+        } else if (username.value.length > 20) {
           username.setAttribute("maxlength", "20");
           usernameInfo.textContent = " >> You have reached max characters.";
           usernameInfo.style.display = "block";

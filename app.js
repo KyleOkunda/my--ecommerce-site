@@ -74,6 +74,47 @@ app.post("/signUp", (req, res) => {
   main();
 });
 
+app.post("/signIn", (req, res) => {
+  async function main() {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      database: "ecommerce",
+      password: "KyleMuse@08",
+    });
+
+    try {
+      const [isEmailExist] = await connection.query(
+        "select case when exists(select email from customers where email = ? ) then 'true' else 'false' end as emailExist ",
+        [req.body.username]
+      );
+
+      if (isEmailExist[0].emailExist == "false") {
+        res.json({
+          resmessage:
+            "Account does not exist, please sign up to create account.",
+        });
+      } else {
+        const [results] = await connection.query(
+          "select * from customers where email = ? ",
+          [req.body.username]
+        );
+
+        let hashedPassword = results[0].cust_password;
+        let isMatch = await bcrypt.compare(req.body.password, hashedPassword);
+        if (isMatch) {
+          res.json({ resmessage: "Passwords match" });
+        } else {
+          res.json({ resmessage: "Incorrect password" });
+        }
+      }
+    } catch (err) {
+      console.log(err.sqlMessage);
+    }
+  }
+  main();
+});
+
 app.get("/cart", (req, res) => {
   async function main() {
     const connection = await mysql.createConnection({

@@ -14,26 +14,26 @@
       </div>
       <div class="form">
         <form action="/signUp" method="post">
+          <div id="resinfo" style="color: red"></div>
           <div class="sign-in-info">
             <p class="head">Sign In</p>
             <p>
-              <label id="lblusernameSignin" for="usernameSignin"
-                >Username:
-              </label>
+              <label for="username">Username: </label>
               <input
-                id="usernameSignin"
-                name="usernameSignin"
+                id="username"
+                name="username"
                 type="text"
                 maxlength="20"
                 placeholder="Enter username or email..."
                 required
               />
             </p>
+            <p class="username-info" style="color: red; margin-top: -10px"></p>
             <p>
               <label for="password">Password: </label>
               <input
-                id="passwordSignin"
-                name="passwordSignin"
+                id="password"
+                name="password"
                 type="password"
                 minlength="6"
                 placeholder="Enter your password..."
@@ -56,16 +56,52 @@
       const usernameInfo = document.getElementsByClassName("username-info")[0];
       const email = document.getElementById("email");
       const password = document.getElementById("password");
-      const confirmPass = document.getElementById("confirm-password");
-      const confirmInfo = document.getElementsByClassName(
-        "confirm-password-info"
-      )[0];
+
       const signin = document.getElementsByClassName("sign-in")[0];
       const signup = document.getElementsByClassName("sign-up")[0];
+
+      // Validate the username, cannot start with a number
+      username.addEventListener("input", () => {
+        if (username.value == "") {
+          username.setAttribute("maxlength", "20");
+          usernameInfo.textContent = "";
+          usernameInfo.style.display = "none";
+        } else if (!isNaN(username.value.charAt(0))) {
+          usernameInfo.textContent = " >> First character cannot be a number.";
+          usernameInfo.style.display = "block";
+          username.setAttribute("maxlength", "1");
+        } else if (username.value.length > 20) {
+          username.setAttribute("maxlength", "20");
+          usernameInfo.textContent = " >> You have reached max characters.";
+          usernameInfo.style.display = "block";
+        } else {
+          usernameInfo.textContent = "";
+          usernameInfo.style.display = "none";
+        }
+      });
 
       //Switch to signing up
       signup.addEventListener("click", () => {
         window.location.href = "/signUp";
+      });
+      //Add event listener for the sign in button
+      const signInBtn = document.getElementById("sign-in-btn");
+      const resinfo = document.getElementById("resinfo");
+      signInBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        fetch("/signIn", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+          }),
+        })
+          .then((Response) => Response.json())
+          .then((data) => {
+            resinfo.textContent = data.resmessage;
+          });
       });
     </script>
   </body>
