@@ -101,6 +101,9 @@
           .then((Response) => Response.json())
           .then((data) => {
             resinfo.textContent = data.resmessage;
+            if (data.resmessage == "Access granted") {
+              window.location.href = "/";
+            }
           });
       });
     </script>

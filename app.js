@@ -85,8 +85,8 @@ app.post("/signIn", (req, res) => {
 
     try {
       const [isEmailExist] = await connection.query(
-        "select case when exists(select email from customers where email = ? ) then 'true' else 'false' end as emailExist ",
-        [req.body.username]
+        "select case when exists(select email from customers where email = ? or username = ?) then 'true' else 'false' end as emailExist ",
+        [req.body.username, req.body.username]
       );
 
       if (isEmailExist[0].emailExist == "false") {
@@ -96,20 +96,20 @@ app.post("/signIn", (req, res) => {
         });
       } else {
         const [results] = await connection.query(
-          "select * from customers where email = ? ",
-          [req.body.username]
+          "select * from customers where email = ? or username = ?",
+          [req.body.username, req.body.username]
         );
 
         let hashedPassword = results[0].cust_password;
         let isMatch = await bcrypt.compare(req.body.password, hashedPassword);
         if (isMatch) {
-          res.json({ resmessage: "Passwords match" });
+          res.json({ resmessage: "Access granted" });
         } else {
           res.json({ resmessage: "Incorrect password" });
         }
       }
     } catch (err) {
-      console.log(err.sqlMessage);
+      console.log(err);
     }
   }
   main();
