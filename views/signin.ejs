@@ -102,7 +102,7 @@
           .then((data) => {
             resinfo.textContent = data.resmessage;
             if (data.resmessage == "Access granted") {
-              window.location.href = "/";
+              window.location.href = "/" + data.username;
             }
           });
       });
