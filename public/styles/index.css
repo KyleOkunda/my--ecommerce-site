@@ -62,6 +62,18 @@ nav .search input:focus {
   outline: none;
 }
 
+nav .username-display {
+  margin-right: 10px;
+  font-size: xx-large;
+  font-family: "Pacifico", sans-serif;
+  color: aqua;
+}
+
+nav .username-display p {
+  position: relative;
+  bottom: 22px;
+}
+
 aside {
   background-color: whitesmoke;
   border-radius: 10px;

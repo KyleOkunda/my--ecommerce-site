@@ -61,6 +61,7 @@
     </div>
 
     <script>
+      var username = sessionStorage.getItem("username");
       const totalforall = document.getElementById("totalforall");
       const priceList = document.getElementsByClassName("totalprice");
       var sum = null;
@@ -77,8 +78,9 @@
       const deleteList = Array.from(document.getElementsByClassName("delete"));
       deleteList.forEach((deleteicon) => {
         deleteicon.addEventListener("click", () => {
+          console.log("Delete clicked");
           let id = parseInt(deleteicon.getAttribute("id"));
-          fetch("/cart", {
+          fetch(`/${username}/cart`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",

@@ -21,8 +21,8 @@
             placeholder="Search products here..."
           />
         </div>
-        <div class="buttons">
-          <button id="signInBtn">Sign in/ Sign up</button>
+        <div class="username-display">
+          <p id="username-display"><%=userInfo.username%></p>
         </div>
       </nav>
       <div class="cat-cart">
@@ -62,25 +62,24 @@
     </div>
 
     <script>
+      //set session storage to store username
+      var username = document.getElementById("username-display").textContent;
+      console.log(username);
+
+      sessionStorage.setItem("username", username);
+
       //add event listener for each product
       const products = document.getElementsByClassName("product");
-      console.info(typeof products);
       Array.from(products).forEach((product) => {
         product.addEventListener("click", () => {
-          window.location.href = "/" + product.getAttribute("id");
+          window.location.href = `/${username}/${product.getAttribute("id")}`;
         });
       });
 
       //add event listener for shopping cart
       const cart = document.getElementsByClassName("cart")[0];
       cart.addEventListener("click", () => {
-        alert("Please sign in to add items to the cart");
-      });
-
-      //Add event listener for the sign in button
-      const signinbtn = document.getElementById("signInBtn");
-      signinbtn.addEventListener("click", () => {
-        window.location.href = "/signIn";
+        window.location.href = "/" + username + "/cart";
       });
     </script>
   </body>

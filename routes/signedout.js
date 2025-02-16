@@ -1,6 +1,7 @@
 const express = require("express");
 const ejs = require("ejs");
 const mysql = require("mysql2/promise");
+const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
@@ -12,7 +13,8 @@ router.get("/", (req, res) => {
       database: "ecommerce",
       password: "KyleMuse@08",
     });
-    const [results, field] = await connection.query("select * from products");
+    const [results] = await connection.query("select * from products");
+    console.log(results[0]);
 
     res.render("index", { results, title: "All you can buy" });
   }
@@ -95,6 +97,7 @@ router.post("/signIn", (req, res) => {
         let username = results[0].username;
         let isMatch = await bcrypt.compare(req.body.password, hashedPassword);
         if (isMatch) {
+          globalThis.signedIn = true;
           res.json({ resmessage: "Access granted", username });
         } else {
           res.json({ resmessage: "Incorrect password" });
@@ -107,82 +110,34 @@ router.post("/signIn", (req, res) => {
   main();
 });
 
-router.get("/cart", (req, res) => {
-  async function main() {
-    const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "ecommerce",
-      password: "KyleMuse@08",
-    });
-    const [results, field] = await connection.query("select * from cart");
-
-    res.render("cart", { results, title: "Shopping Cart" });
-  }
-  main();
-});
-
-router.post("/cart", (req, res) => {
-  let data = req.body;
-  console.log(data);
-  async function main() {
-    const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "ecommerce",
-      password: "KyleMuse@08",
-    });
-
-    await connection.query("insert into cart() values(?, ?, ?, ?, ?)", [
-      data.prodid,
-      data.prodName,
-      data.imageLoc,
-      data.price,
-      data.quantity,
-    ]);
-  }
-  main();
-});
-
-router.delete("/cart", (req, res) => {
-  async function main() {
-    const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "ecommerce",
-      password: "KyleMuse@08",
-    });
-
-    await connection.query("delete from cart where productId = ?", [
-      req.body.id,
-    ]);
-    res.json({ redirect: "/cart" });
-  }
-  main();
-});
-
 router.get("/:prodid", (req, res, next) => {
-  let prodid = req.params.prodid;
+  console.log("request made here");
 
-  async function main() {
-    const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "ecommerce",
-      password: "KyleMuse@08",
-    });
-    try {
-      const [results, field] = await connection.query(
-        "select * from products where productId = ?",
-        [prodid]
-      );
+  if (globalThis.signedIn) {
+    next();
+  } else {
+    let prodid = req.params.prodid;
 
-      res.render("productspage", { result: results[0] });
-    } catch (err) {
-      next();
+    async function main() {
+      const connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "ecommerce",
+        password: "KyleMuse@08",
+      });
+      try {
+        const [results] = await connection.execute(
+          "select * from products where productId = ?",
+          [prodid]
+        );
+        console.log(results);
+        res.render("productspage", { results });
+      } catch (err) {
+        console.log(err);
+      }
     }
+    main();
   }
-  main();
 });
 
 module.exports = router;
