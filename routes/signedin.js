@@ -4,8 +4,11 @@ const mysql = require("mysql2/promise");
 
 const router = express.Router();
 
+router.get("/KyleAdmin", (req, res) => {
+  res.render("admin");
+});
+
 router.get("/:username", (req, res, next) => {
-  signedIn = true;
   let username = req.params.username;
 
   async function main() {
@@ -16,13 +19,10 @@ router.get("/:username", (req, res, next) => {
       password: "KyleMuse@08",
     });
     try {
-      const [userInfo] = await connection.query(
-        "select username from customers where username = ?",
-        [username]
-      );
       const [results] = await connection.query("select * from products");
+
       res.render("signedInIndex", {
-        userInfo: userInfo[0],
+        username,
         results,
         title: username,
       });

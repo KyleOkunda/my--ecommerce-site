@@ -135,6 +135,7 @@
         })
           .then((Response) => Response.json())
           .then((data) => {
+            resinfo.style.color = "green";
             resinfo.textContent = data.resmessage;
           });
       });

@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
+globalThis.signedIn = false;
+
 router.get("/", (req, res) => {
   async function main() {
     const connection = await mysql.createConnection({
@@ -111,13 +113,16 @@ router.post("/signIn", (req, res) => {
 });
 
 router.get("/:prodid", (req, res, next) => {
-  console.log("request made here");
-
+  let prodid = req.params.prodid;
+  console.log(globalThis.signedIn);
   if (globalThis.signedIn) {
     next();
   } else {
-    let prodid = req.params.prodid;
-
+    try {
+      main();
+    } catch (err) {
+      res.render("404");
+    }
     async function main() {
       const connection = await mysql.createConnection({
         host: "localhost",
@@ -125,18 +130,17 @@ router.get("/:prodid", (req, res, next) => {
         database: "ecommerce",
         password: "KyleMuse@08",
       });
-      try {
-        const [results] = await connection.execute(
-          "select * from products where productId = ?",
-          [prodid]
-        );
-        console.log(results);
+
+      const [results] = await connection.query(
+        "select * from products where productId = ?",
+        [prodid]
+      );
+      if (results.length < 1) {
+        res.render("404");
+      } else {
         res.render("productspage", { results });
-      } catch (err) {
-        console.log(err);
       }
     }
-    main();
   }
 });
 
