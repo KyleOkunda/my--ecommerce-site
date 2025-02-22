@@ -97,6 +97,48 @@ router.post("/:username/cart", (req, res) => {
   } else {
     res.render("404");
   }
+  async function main() {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      database: "ecommerce",
+      password: "KyleMuse@08",
+    });
+
+    await connection.query("delete from cart where username = ?", [username]);
+
+    let itemsArray = req.body.itemsArray;
+    let quantityArray = req.body.quantityArray;
+    var counter = 0;
+    console.log(itemsArray);
+    console.log(quantityArray);
+
+    itemsArray.forEach((element) => {
+      (async () => {
+        console.log(counter);
+        const [results] = await connection.query(
+          "select no_remaining from products where productId = ?",
+          [element]
+        );
+        console.log(results);
+        let difference = results[0].no_remaining - quantityArray[counter];
+        ++counter;
+        console.log("diff: " + difference);
+        await connection.query(
+          "update products set no_remaining = ? where productId = ?",
+          [difference, element]
+        );
+      })();
+    });
+  }
+});
+router.post("/:username/:prodid", (req, res) => {
+  let username = req.params.username;
+  if (username == req.session.user.username) {
+    main();
+  } else {
+    res.render("404");
+  }
 
   let data = req.body;
   console.log(data);

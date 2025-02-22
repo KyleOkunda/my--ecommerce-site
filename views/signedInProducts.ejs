@@ -86,7 +86,7 @@
 
       addToCart.addEventListener("click", () => {
         if (quantity >= 1) {
-          fetch(`/${username}/cart`, {
+          fetch(`/${username}/${prodid}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
