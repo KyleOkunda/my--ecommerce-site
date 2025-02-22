@@ -1,11 +1,25 @@
 const express = require("express");
+const session = require("express-session");
 const ejs = require("ejs");
 const mysql = require("mysql2/promise");
 
 const router = express.Router();
 
+globalThis.signedIn = true;
+
 router.get("/KyleAdmin", (req, res) => {
-  res.render("admin");
+  async function main() {
+    const connection = await mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      database: "ecommerce",
+      password: "KyleMuse@08",
+    });
+    const [results] = await connection.query("select * from products");
+    const [customers] = await connection.query("select * from customers");
+    res.render("admin", { results, customers });
+  }
+  main();
 });
 
 router.get("/:username", (req, res, next) => {
