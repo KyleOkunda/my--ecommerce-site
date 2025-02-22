@@ -5,9 +5,13 @@ const mysql = require("mysql2/promise");
 
 const router = express.Router();
 
-globalThis.signedIn = true;
-
 router.get("/KyleAdmin", (req, res) => {
+  if (req.session.user.username == "KyleAdmin") {
+    main();
+  } else {
+    res.render("404");
+  }
+
   async function main() {
     const connection = await mysql.createConnection({
       host: "localhost",
@@ -19,11 +23,17 @@ router.get("/KyleAdmin", (req, res) => {
     const [customers] = await connection.query("select * from customers");
     res.render("admin", { results, customers });
   }
-  main();
 });
 
 router.get("/:username", (req, res, next) => {
   let username = req.params.username;
+
+  if (username == req.session.user.username) {
+    console.log(req.session);
+    main();
+  } else {
+    res.render("404");
+  }
 
   async function main() {
     const connection = await mysql.createConnection({
@@ -44,11 +54,26 @@ router.get("/:username", (req, res, next) => {
       console.log(err);
     }
   }
-  main();
+});
+
+router.post("/:username", (req, res) => {
+  globalThis.signedIn = false;
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+
+  res.json({ redirect: "/" });
 });
 
 router.get("/:username/cart", (req, res) => {
   let username = req.params.username;
+  if (username == req.session.user.username) {
+    main();
+  } else {
+    res.render("404");
+  }
   async function main() {
     const connection = await mysql.createConnection({
       host: "localhost",
@@ -63,11 +88,16 @@ router.get("/:username/cart", (req, res) => {
 
     res.render("cart", { results, title: "Shopping Cart" });
   }
-  main();
 });
 
 router.post("/:username/cart", (req, res) => {
   let username = req.params.username;
+  if (username == req.session.user.username) {
+    main();
+  } else {
+    res.render("404");
+  }
+
   let data = req.body;
   console.log(data);
   async function main() {
@@ -87,11 +117,16 @@ router.post("/:username/cart", (req, res) => {
       data.quantity,
     ]);
   }
-  main();
 });
 
 router.delete("/:username/cart", (req, res) => {
   let username = req.params.username;
+  if (username == req.session.user.username) {
+    main();
+  } else {
+    res.render("404");
+  }
+
   async function main() {
     const connection = await mysql.createConnection({
       host: "localhost",
@@ -106,12 +141,17 @@ router.delete("/:username/cart", (req, res) => {
     );
     res.json({ redirect: `/${username}/cart` });
   }
-  main();
 });
 
 router.get("/:username/:prodid", (req, res, next) => {
   let username = req.params.username;
   let prodid = req.params.prodid;
+
+  if (username == req.session.user.username) {
+    main();
+  } else {
+    res.render("404");
+  }
 
   async function main() {
     const connection = await mysql.createConnection({
@@ -131,7 +171,6 @@ router.get("/:username/:prodid", (req, res, next) => {
       console.log(err);
     }
   }
-  main();
 });
 
 module.exports = router;

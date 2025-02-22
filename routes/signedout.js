@@ -17,7 +17,6 @@ router.get("/", (req, res) => {
       password: "KyleMuse@08",
     });
     const [results] = await connection.query("select * from products");
-    console.log(results[0]);
 
     res.render("index", { results, title: "All you can buy" });
   }
@@ -101,6 +100,11 @@ router.post("/signIn", (req, res) => {
         let isMatch = await bcrypt.compare(req.body.password, hashedPassword);
         if (isMatch) {
           globalThis.signedIn = true;
+          req.session.user = {
+            username,
+            userEmail: results[0].email,
+          };
+
           res.json({ resmessage: "Access granted", username });
         } else {
           res.json({ resmessage: "Incorrect password" });

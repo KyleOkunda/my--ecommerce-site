@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const ejs = require("ejs");
 const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
@@ -15,6 +16,15 @@ app.set("views", "views");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+app.use(
+  session({
+    secret: "mylittlesecret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
+  })
+);
 
 app.use(signedOutRoutes);
 app.use(signedInRoutes);

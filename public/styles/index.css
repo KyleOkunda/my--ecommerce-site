@@ -131,8 +131,10 @@ aside hr {
   height: 50px;
   width: 50px;
   box-shadow: 1px 1px 3px;
+  margin: 10px;
   transition: 800ms;
 }
+
 .cart .fa-solid {
   position: relative;
   top: 17px;
@@ -140,6 +142,9 @@ aside hr {
 }
 .cart:hover {
   background: aqua;
+}
+#log-out:hover {
+  background: rgb(255, 77, 77);
 }
 hr {
   margin-top: 10px;
