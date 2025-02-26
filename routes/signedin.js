@@ -110,20 +110,17 @@ router.post("/:username/cart", (req, res) => {
     let itemsArray = req.body.itemsArray;
     let quantityArray = req.body.quantityArray;
     var counter = 0;
-    console.log(itemsArray);
-    console.log(quantityArray);
 
     itemsArray.forEach((element) => {
       (async () => {
-        console.log(counter);
         const [results] = await connection.query(
           "select no_remaining from products where productId = ?",
           [element]
         );
-        console.log(results);
+
         let difference = results[0].no_remaining - quantityArray[counter];
-        ++counter;
-        console.log("diff: " + difference);
+        counter++;
+
         await connection.query(
           "update products set no_remaining = ? where productId = ?",
           [difference, element]
