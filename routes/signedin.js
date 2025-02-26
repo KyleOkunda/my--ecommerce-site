@@ -21,7 +21,8 @@ router.get("/KyleAdmin", (req, res) => {
     });
     const [results] = await connection.query("select * from products");
     const [customers] = await connection.query("select * from customers");
-    res.render("admin", { results, customers });
+    const [orders] = await connection.query("select * from orders");
+    res.render("admin", { results, customers, orders });
   }
 });
 
@@ -105,6 +106,10 @@ router.post("/:username/cart", (req, res) => {
       password: "KyleMuse@08",
     });
 
+    await connection.query(
+      "insert into orders select * from cart where username = ?",
+      [username]
+    );
     await connection.query("delete from cart where username = ?", [username]);
 
     let itemsArray = req.body.itemsArray;
