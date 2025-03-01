@@ -3,6 +3,7 @@ const session = require("express-session");
 const ejs = require("ejs");
 const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 const router = express.Router();
 
@@ -11,10 +12,10 @@ globalThis.signedIn = false;
 router.get("/", (req, res) => {
   async function main() {
     const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "ecommerce",
-      password: "KyleMuse@08",
+      host: process.env.HOST,
+      user: process.env.USER,
+      database: process.env.DATABASE,
+      password: process.env.PASSWORD,
     });
     const [results] = await connection.query("select * from products");
 
@@ -35,10 +36,10 @@ router.get("/signIn", (req, res) => {
 router.post("/signUp", (req, res) => {
   async function main() {
     const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "ecommerce",
-      password: "KyleMuse@08",
+      host: process.env.HOST,
+      user: process.env.USER,
+      database: process.env.DATABASE,
+      password: process.env.PASSWORD,
     });
 
     let hashedPassword = await bcrypt.hash(req.body.password, 12);
@@ -72,10 +73,10 @@ router.post("/signUp", (req, res) => {
 router.post("/signIn", (req, res) => {
   async function main() {
     const connection = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "ecommerce",
-      password: "KyleMuse@08",
+      host: process.env.HOST,
+      user: process.env.USER,
+      database: process.env.DATABASE,
+      password: process.env.PASSWORD,
     });
 
     try {
@@ -130,10 +131,10 @@ router.get("/:prodid", (req, res, next) => {
     }
     async function main() {
       const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "ecommerce",
-        password: "KyleMuse@08",
+        host: process.env.HOST,
+        user: process.env.USER,
+        database: process.env.DATABASE,
+        password: process.env.PASSWORD,
       });
 
       const [results] = await connection.query(
