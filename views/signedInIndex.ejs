@@ -48,7 +48,11 @@
       <main>
         <% if(results.length > 0){%> <%for(const result of results ){%>
 
-        <div class="product" id="<%= result.productId %>">
+        <div
+          class="product"
+          id="<%= result.productId %>"
+          data-prodname="<%= result.product_name %>"
+        >
           <div class="image">
             <img src="/images/<%=result.prod_image_loc%>" alt="Good stuff" />
           </div>
@@ -64,6 +68,7 @@
       </main>
     </div>
 
+    <%- include("./partials/searchbar.html") %>
     <script>
       //set session storage to store username
       var username = document.getElementById("username-display").textContent;

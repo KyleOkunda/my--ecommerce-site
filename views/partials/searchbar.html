@@ -1,0 +1,29 @@
+<script>
+  window.onload = () => {
+    var search = document.getElementById("searchbar");
+    var products = document.getElementsByClassName("product");
+    search.addEventListener("input", () => {
+      console.log("Writing...");
+
+      let productsArray = Array.from(products);
+
+      productsArray.forEach((product) => {
+        let searchTerm = search.value.toLowerCase();
+        console.log(searchTerm);
+        let prodname = product.getAttribute("data-prodname").toLowerCase();
+        console.log(prodname);
+
+        if (prodname.includes(searchTerm)) {
+          console.log("found");
+          product.style.display = "block";
+        } else if (searchTerm == "") {
+          console.log("Search term Empty");
+          product.style.display = "block";
+        } else {
+          console.log("Not found");
+          product.style.display = "none";
+        }
+      });
+    });
+  };
+</script>
