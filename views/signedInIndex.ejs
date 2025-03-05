@@ -96,6 +96,7 @@
         let sure = confirm("Are you sure you want to log out?");
 
         if (sure) {
+          sessionStorage.clear();
           fetch(`/${username}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
