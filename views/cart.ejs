@@ -50,7 +50,9 @@
                 <p>
                   Total:
                   <span class="blue"
-                    >$<span class="totalprice"><%=total%></span></span
+                    >$<span class="totalprice"
+                      ><%=result.total_price%></span
+                    ></span
                   >
                 </p>
               </div>
@@ -69,10 +71,10 @@
       const priceList = document.getElementsByClassName("totalprice");
       var sum = null;
       for (const itemprice of Array.from(priceList)) {
-        sum = sum + +itemprice.textContent;
+        sum = sum + parseFloat(itemprice.textContent);
       }
       if (priceList) {
-        totalforall.innerText = sum;
+        totalforall.innerText = parseFloat(sum).toFixed(2);
       } else {
         totalforall.innerText = 0;
       }
@@ -98,7 +100,7 @@
       });
       //Add event listener for the buy button
       const buybtn = document.getElementById("buybtn");
-      let totalprice = parseInt(totalforall.textContent);
+      let totalprice = parseFloat(totalforall.textContent);
 
       //Buy items in the cart
       buybtn.addEventListener("click", () => {

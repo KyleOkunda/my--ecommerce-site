@@ -153,13 +153,15 @@ router.post("/:username/:prodid", (req, res) => {
       password: process.env.PASSWORD,
     });
 
-    await connection.query("insert into cart() values(?,?, ?, ?, ?, ?)", [
+    let total = data.price * data.quantity;
+    await connection.query("insert into cart() values(?,?, ?, ?, ?, ?, ?)", [
       username,
       data.prodid,
       data.prodName,
       data.imageLoc,
       data.price,
       data.quantity,
+      total,
     ]);
   }
 });
