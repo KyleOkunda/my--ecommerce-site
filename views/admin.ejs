@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kyle | Admin</title>
+    <link rel="stylesheet" href="/styles/admin.css" />
+  </head>
+  <body>
+    <div class="content">
+      <nav>
+        <div class="logo"><p>Kyle admin</p></div>
+        <div class="buttons"><button id="logout">Log out</button></div>
+      </nav>
+      <div class="main">
+        <div class="products">
+          <h1>Products.</h1>
+          <table border="1">
+            <tr>
+              <th>Product Id</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Image location</th>
+              <th>Products remaining</th>
+            </tr>
+
+            <% if(results.length > 0){ %> <% for(const result of results){ %>
+            <tr>
+              <td><%=result.productId%></td>
+              <td><%=result.product_name%></td>
+              <td><%=result.category%></td>
+              <td><%=result.prod_image_loc%></td>
+              <td><%=result.no_remaining%></td>
+            </tr>
+            <% } %> <% } %>
+          </table>
+        </div>
+        <div class="customers">
+          <h1>Customers.</h1>
+          <table border="1">
+            <tr>
+              <th>Username</th>
+              <th>User Email</th>
+            </tr>
+
+            <% if(customers.length > 0){ %> <% for(const customer of customers){
+            %>
+            <tr>
+              <td><%=customer.username%></td>
+              <td><%=customer.email%></td>
+            </tr>
+            <% } %> <% } %>
+          </table>
+        </div>
+        <div class="orders">
+          <h1>Orders.</h1>
+          <table border="1">
+            <tr>
+              <th>Username</th>
+              <th>Product Id</th>
+              <th>Product Name</th>
+              <th>Image Location</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total Price</th>
+            </tr>
+
+            <% if(orders.length > 0){ %> <% for(const order of orders){ %>
+            <tr>
+              <td><%=order.username%></td>
+              <td><%=order.product_name%></td>
+              <td><%=order.productId%></td>
+              <td><%=order.prod_image_loc%></td>
+              <td><%=order.price%></td>
+              <td><%=order.quantity%></td>
+              <td><%=order.total_price%></td>
+            </tr>
+            <% } %> <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.onload = () => {
+        const logout = document.getElementById("logout");
+        logout.addEventListener("click", () => {
+          var sure = confirm("Are you sure you want t log out?");
+          if (sure) {
+            window.location.href = "/signIn";
+          }
+        });
+      };
+    </script>
+  </body>
+</html>

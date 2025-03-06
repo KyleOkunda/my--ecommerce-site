@@ -21,8 +21,8 @@
             placeholder="Search products here..."
           />
         </div>
-        <div class="buttons">
-          <button id="signInBtn">Sign in/ Sign up</button>
+        <div class="username-display">
+          <p id="username-display"><%=username%></p>
         </div>
       </nav>
       <div class="cat-cart">
@@ -39,6 +39,9 @@
         </aside>
         <div class="cart">
           <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div id="log-out" class="cart" title="Log out">
+          <i class="fa-solid fa-door-open"></i>
         </div>
       </div>
       <hr />
@@ -67,25 +70,45 @@
 
     <%- include("./partials/searchbar.html") %>
     <script>
+      //set session storage to store username
+      var username = document.getElementById("username-display").textContent;
+      console.log(username);
+
+      sessionStorage.setItem("username", username);
+
       //add event listener for each product
       const products = document.getElementsByClassName("product");
-
       Array.from(products).forEach((product) => {
         product.addEventListener("click", () => {
-          window.location.href = "/" + product.getAttribute("id");
+          window.location.href = `/${username}/${product.getAttribute("id")}`;
         });
       });
 
       //add event listener for shopping cart
       const cart = document.getElementsByClassName("cart")[0];
       cart.addEventListener("click", () => {
-        alert("Please sign in to add items to the cart");
+        window.location.href = "/" + username + "/cart";
       });
 
-      //Add event listener for the sign in button
-      const signinbtn = document.getElementById("signInBtn");
-      signinbtn.addEventListener("click", () => {
-        window.location.href = "/signIn";
+      //Add event listener for logging out
+      const logout = document.getElementById("log-out");
+      logout.addEventListener("click", () => {
+        let sure = confirm("Are you sure you want to log out?");
+
+        if (sure) {
+          sessionStorage.clear();
+          fetch(`/${username}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ signedIn: false }),
+          })
+            .then((Response) => Response.json())
+            .then((data) => {
+              window.location.href = data.redirect;
+            });
+        } else {
+          alert("Log out cancelled");
+        }
       });
     </script>
   </body>

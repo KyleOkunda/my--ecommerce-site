@@ -42,12 +42,17 @@
               </div>
               <div class="name"><%=result.product_name%></div>
               <div class="price">$<%=result.price%></div>
-              <div class="quantity">Quantity: <%=result.quantity%></div>
+              <div class="quantity">
+                Quantity:
+                <span class="actual-quantity"> <%=result.quantity%></span>
+              </div>
               <div class="total">
                 <p>
                   Total:
                   <span class="blue"
-                    >$<span class="totalprice"><%=total%></span></span
+                    >$<span class="totalprice"
+                      ><%=result.total_price%></span
+                    ></span
                   >
                 </p>
               </div>
@@ -59,16 +64,17 @@
         </div>
       </main>
     </div>
-
+    <%- include("./partials/tomainpage.html") %>
     <script>
+      var username = sessionStorage.getItem("username");
       const totalforall = document.getElementById("totalforall");
       const priceList = document.getElementsByClassName("totalprice");
       var sum = null;
       for (const itemprice of Array.from(priceList)) {
-        sum = sum + +itemprice.textContent;
+        sum = sum + parseFloat(itemprice.textContent);
       }
       if (priceList) {
-        totalforall.innerText = sum;
+        totalforall.innerText = parseFloat(sum).toFixed(2);
       } else {
         totalforall.innerText = 0;
       }
@@ -77,8 +83,9 @@
       const deleteList = Array.from(document.getElementsByClassName("delete"));
       deleteList.forEach((deleteicon) => {
         deleteicon.addEventListener("click", () => {
+          console.log("Delete clicked");
           let id = parseInt(deleteicon.getAttribute("id"));
-          fetch("/cart", {
+          fetch(`/${username}/cart`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -93,10 +100,39 @@
       });
       //Add event listener for the buy button
       const buybtn = document.getElementById("buybtn");
-      let totalprice = parseInt(totalforall.textContent);
+      let totalprice = parseFloat(totalforall.textContent);
+
+      //Buy items in the cart
       buybtn.addEventListener("click", () => {
         if (!isNaN(totalprice)) {
-          alert("Pay $" + totalprice);
+          let sure = confirm(
+            `Confirm payment of $${totalprice} for the items in the cart?`
+          );
+
+          if (sure) {
+            let itemsToBuy = document.getElementsByClassName("product-info");
+            let quantities = document.getElementsByClassName("actual-quantity");
+            let itemsArray = [];
+            let quantityArray = [];
+            Array.from(itemsToBuy).forEach((item) => {
+              let id = item.getAttribute("id");
+              itemsArray.push(id);
+            });
+
+            Array.from(quantities).forEach((quantity) => {
+              let itemQuantity = parseInt(quantity.textContent);
+              quantityArray.push(itemQuantity);
+            });
+
+            fetch(`/${username}/cart`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                itemsArray,
+                quantityArray,
+              }),
+            });
+          }
         } else {
           alert("Nothing to buy");
         }

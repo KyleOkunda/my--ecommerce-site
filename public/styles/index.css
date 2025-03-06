@@ -11,7 +11,7 @@ nav {
   height: 80px;
   width: 100%;
   margin-bottom: 10px;
-  position: relative;
+  position: sticky;
   display: flex;
   justify-content: space-between;
 }
@@ -60,6 +60,18 @@ nav .search input {
 }
 nav .search input:focus {
   outline: none;
+}
+
+nav .username-display {
+  margin-right: 10px;
+  font-size: xx-large;
+  font-family: "Pacifico", sans-serif;
+  color: aqua;
+}
+
+nav .username-display p {
+  position: relative;
+  bottom: 22px;
 }
 
 aside {
@@ -119,8 +131,10 @@ aside hr {
   height: 50px;
   width: 50px;
   box-shadow: 1px 1px 3px;
+  margin: 10px;
   transition: 800ms;
 }
+
 .cart .fa-solid {
   position: relative;
   top: 17px;
@@ -128,6 +142,9 @@ aside hr {
 }
 .cart:hover {
   background: aqua;
+}
+#log-out:hover {
+  background: rgb(255, 77, 77);
 }
 hr {
   margin-top: 10px;

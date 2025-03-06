@@ -1,0 +1,16 @@
+<script>
+  window.onload = () => {
+    let username = sessionStorage.getItem("username");
+    if (username) {
+      let logo = document.getElementsByClassName("logo")[0];
+      logo.addEventListener("click", () => {
+        window.location.href = "/" + username;
+      });
+    } else {
+      let logo = document.getElementsByClassName("logo")[0];
+      logo.addEventListener("click", () => {
+        window.location.href = "/";
+      });
+    }
+  };
+</script>

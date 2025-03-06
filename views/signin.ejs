@@ -23,7 +23,6 @@
                 id="username"
                 name="username"
                 type="text"
-                maxlength="20"
                 placeholder="Enter username or email..."
                 required
               />
@@ -101,6 +100,10 @@
           .then((Response) => Response.json())
           .then((data) => {
             resinfo.textContent = data.resmessage;
+            if (data.resmessage == "Access granted") {
+              resinfo.style.color = "green";
+              window.location.href = "/" + data.username;
+            }
           });
       });
     </script>

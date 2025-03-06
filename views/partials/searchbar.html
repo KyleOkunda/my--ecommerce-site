@@ -1,0 +1,23 @@
+<script>
+  window.onload = () => {
+    var search = document.getElementById("searchbar");
+    var products = document.getElementsByClassName("product");
+    search.addEventListener("input", () => {
+      let productsArray = Array.from(products);
+
+      productsArray.forEach((product) => {
+        let searchTerm = search.value.toLowerCase();
+
+        let prodname = product.getAttribute("data-prodname").toLowerCase();
+
+        if (prodname.includes(searchTerm)) {
+          product.style.display = "block";
+        } else if (searchTerm == "") {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+      });
+    });
+  };
+</script>

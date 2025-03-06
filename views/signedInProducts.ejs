@@ -54,19 +54,54 @@
         <button id="add-to-cart">Add to cart</button>
       </div>
     </div>
-    <%- include("./partials/tomainpage.html") %>
 
+    <%- include("./partials/tomainpage.html") %>
     <script>
+      let username = sessionStorage.getItem("username");
       //add event listener for shopping cart
       const cart = document.getElementsByClassName("cart")[0];
-      const addToCart = document.getElementById("add-to-cart");
       cart.addEventListener("click", () => {
-        alert("Please sign in to add items to cart");
+        window.location.href = `/${username}/cart`;
+      });
+
+      //Initiate a post request to add data to the cart
+      const prodid = parseInt(
+        document.getElementsByClassName("product-info")[0].getAttribute("id")
+      );
+      const prodName =
+        document.getElementsByClassName("itemname")[0].textContent;
+      const imageLoc = document
+        .getElementsByTagName("img")[0]
+        .getAttribute("src");
+      const price = parseFloat(
+        document.getElementsByClassName("itemprice")[0].textContent
+      );
+
+      let quantity = null;
+      const input = document.getElementById("quantity");
+      const addToCart = document.getElementById("add-to-cart");
+
+      input.addEventListener("input", () => {
+        quantity = +input.value;
       });
 
       addToCart.addEventListener("click", () => {
-        console.log("Button clicked");
-        alert("Please sign in to add to cart");
+        if (quantity >= 1) {
+          fetch(`/${username}/${prodid}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              prodid,
+              prodName,
+              imageLoc,
+              price,
+              quantity,
+              username,
+            }),
+          });
+        } else {
+          alert("Please enter the quantity");
+        }
       });
     </script>
   </body>

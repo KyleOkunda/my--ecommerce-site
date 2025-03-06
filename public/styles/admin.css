@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Quicksand:wght@300..700&display=swap");
+html {
+  overscroll-behavior: none;
+}
+body {
+  overscroll-behavior: none;
+}
+
+nav {
+  background: linear-gradient(135deg, aqua, rgb(0, 47, 255));
+  box-shadow: 2px 2px 5px;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+nav .logo {
+  margin-left: 10px;
+  font-size: xx-large;
+  font-family: "Pacifico", sans-serif;
+  color: rgb(0, 96, 160);
+}
+nav .logo p {
+  position: relative;
+  bottom: 22px;
+}
+
+nav .buttons {
+  margin-right: 15px;
+}
+nav .buttons button {
+  position: relative;
+  top: 23px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  font-size: medium;
+  border: 2px solid aqua;
+  border-radius: 10px;
+  background: transparent;
+  color: white;
+  height: 34px;
+  width: 130px;
+  transition: 800ms;
+}
+nav .buttons button:hover {
+  background: aqua;
+  color: rgb(0, 3, 160);
+}
+table {
+  width: 100%;
+}
+.products,
+.customers,
+.orders {
+  width: 98%;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px aqua;
+  overflow-y: scroll;
+  margin: 20px;
+}
