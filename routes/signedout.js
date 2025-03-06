@@ -1,9 +1,8 @@
 const express = require("express");
 const session = require("express-session");
 const ejs = require("ejs");
-const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
-require("dotenv").config();
+const connectionPromise = require("./connection");
 
 const router = express.Router();
 
@@ -11,12 +10,7 @@ globalThis.signedIn = false;
 
 router.get("/", (req, res) => {
   async function main() {
-    const connection = await mysql.createConnection({
-      host: process.env.HOST,
-      user: process.env.USER,
-      database: process.env.DATABASE,
-      password: process.env.PASSWORD,
-    });
+    const connection = await connectionPromise;
     const [results] = await connection.query("select * from products");
 
     res.render("index", { results, title: "All you can buy" });
@@ -35,13 +29,7 @@ router.get("/signIn", (req, res) => {
 
 router.post("/signUp", (req, res) => {
   async function main() {
-    const connection = await mysql.createConnection({
-      host: process.env.HOST,
-      user: process.env.USER,
-      database: process.env.DATABASE,
-      password: process.env.PASSWORD,
-    });
-
+    const connection = await connectionPromise;
     let hashedPassword = await bcrypt.hash(req.body.password, 12);
 
     try {
@@ -72,13 +60,7 @@ router.post("/signUp", (req, res) => {
 
 router.post("/signIn", (req, res) => {
   async function main() {
-    const connection = await mysql.createConnection({
-      host: process.env.HOST,
-      user: process.env.USER,
-      database: process.env.DATABASE,
-      password: process.env.PASSWORD,
-    });
-
+    const connection = await connectionPromise;
     try {
       const [isEmailExist] = await connection.query(
         "select case when exists(select email from customers where email = ? or username = ?) then 'true' else 'false' end as emailExist ",
@@ -130,13 +112,7 @@ router.get("/:prodid", (req, res, next) => {
       res.render("404");
     }
     async function main() {
-      const connection = await mysql.createConnection({
-        host: process.env.HOST,
-        user: process.env.USER,
-        database: process.env.DATABASE,
-        password: process.env.PASSWORD,
-      });
-
+      const connection = await connectionPromise;
       const [results] = await connection.query(
         "select * from products where productId = ?",
         [prodid]
