@@ -8,7 +8,7 @@ const signedOutRoutes = require("./routes/signedout.js");
 const signedInRoutes = require("./routes/signedin.js");
 
 const app = express();
-app.listen(3001);
+app.listen(process.env.PORT || 3001);
 
 app.set("view engine", "ejs");
 app.set("views", "views");

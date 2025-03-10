@@ -48,6 +48,23 @@ nav .buttons button:hover {
   background: aqua;
   color: rgb(0, 3, 160);
 }
+
+.main .add {
+  height: 200px;
+  width: 200px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+.main .add .image {
+  height: 160px;
+  width: 100%;
+  border: 2px solid red;
+}
+#img {
+  height: 100%;
+  width: 100%;
+}
+
 table {
   width: 100%;
 }

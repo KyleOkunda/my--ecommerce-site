@@ -13,6 +13,12 @@
         <div class="buttons"><button id="logout">Log out</button></div>
       </nav>
       <div class="main">
+        <div class="add">
+          <div class="image">
+            <img id="image" src="" alt="Error no image" />
+          </div>
+          <input id="file" type="file" />
+        </div>
         <div class="products">
           <h1>Products.</h1>
           <table border="1">
@@ -89,6 +95,13 @@
           if (sure) {
             window.location.href = "/signIn";
           }
+        });
+
+        let imageInput = document.getElementById("file");
+        let image = document.getElementById("image");
+        imageInput.addEventListener("input", (e) => {
+          let imgPath = e.target.files[0].name;
+          image.setAttribute("src", imgPath);
         });
       };
     </script>
