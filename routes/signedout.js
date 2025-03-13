@@ -6,10 +6,9 @@ const connectionPromise = require("./connection");
 
 const router = express.Router();
 
-globalThis.signedIn = false;
-
 router.get("/", (req, res) => {
   async function main() {
+    console.log("Index accessed");
     const connection = await connectionPromise;
     const [results] = await connection.query("select * from products");
 
@@ -18,6 +17,8 @@ router.get("/", (req, res) => {
 
   main();
 });
+
+console.log("Index passed");
 
 router.get("/signUp", (req, res) => {
   res.render("signup");
@@ -82,7 +83,6 @@ router.post("/signIn", (req, res) => {
         let username = results[0].username;
         let isMatch = await bcrypt.compare(req.body.password, hashedPassword);
         if (isMatch) {
-          globalThis.signedIn = true;
           req.session.user = {
             username,
             userEmail: results[0].email,
@@ -102,8 +102,9 @@ router.post("/signIn", (req, res) => {
 
 router.get("/:prodid", (req, res, next) => {
   let prodid = req.params.prodid;
-  console.log(globalThis.signedIn);
-  if (globalThis.signedIn) {
+  console.log("Accesing product");
+
+  if (isNaN(prodid)) {
     next();
   } else {
     try {
