@@ -50,19 +50,65 @@ nav .buttons button:hover {
 }
 
 .main .add {
-  height: 200px;
-  width: 200px;
+  height: 240px;
+  width: 750px;
   border: 2px solid black;
   border-radius: 5px;
+  display: flex;
 }
-.main .add .image {
+.main .add-image {
+  width: 20%;
+  margin: 10px;
+}
+.main .add .add-image .image {
   height: 160px;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px;
   width: 100%;
-  border: 2px solid red;
+
+  margin: 10px 0;
 }
 #img {
   height: 100%;
   width: 100%;
+}
+.product-info {
+  width: 80%;
+  margin: 10px 0;
+  text-align: center;
+}
+.product-info input {
+  background: whitesmoke;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid blue;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 250px;
+  height: 27px;
+  margin: 10px 5px;
+  padding: 5px;
+  padding-left: 15px;
+  font-family: "Nunito", serif;
+  letter-spacing: 1.2px;
+}
+.product-info input:focus {
+  outline: none;
+}
+.button {
+  display: block;
+}
+button {
+  height: 40px;
+  width: 75px;
+  border: 1px solid aqua;
+  border-radius: 5px;
+  background: rgb(129, 219, 255);
+  font-family: "Nunito", serif;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 table {
