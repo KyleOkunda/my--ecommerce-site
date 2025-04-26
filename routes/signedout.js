@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   async function main() {
-    console.log("Index accessed");
     const connection = await connectionPromise;
     const [results] = await connection.query("select * from products");
 
@@ -17,8 +16,6 @@ router.get("/", (req, res) => {
 
   main();
 });
-
-console.log("Index passed");
 
 router.get("/signUp", (req, res) => {
   res.render("signup");
@@ -87,6 +84,7 @@ router.post("/signIn", (req, res) => {
             username,
             userEmail: results[0].email,
           };
+          //console.log(req.session);
 
           res.json({ resmessage: "Access granted", username });
         } else {
@@ -100,9 +98,13 @@ router.post("/signIn", (req, res) => {
   main();
 });
 
+router.get("/favicon.ico", (req, res) => {
+  res.sendStatus(204); // Respond with "No Content"
+});
+
 router.get("/:prodid", (req, res, next) => {
   let prodid = req.params.prodid;
-  console.log("Accesing product");
+  console.log(prodid);
 
   if (isNaN(prodid)) {
     next();

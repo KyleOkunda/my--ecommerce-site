@@ -24,7 +24,8 @@ router.get("/KyleAdmin", (req, res) => {
 router.get("/:username", (req, res, next) => {
   let username = req.params.username;
 
-  if (username == req.session.user.username) {
+  if (req.session.user) {
+    console.log(req.sessionID);
     main();
   } else {
     res.render("404");
@@ -45,9 +46,8 @@ router.get("/:username", (req, res, next) => {
     }
   }
 });
-
+/*
 router.post("/:username", (req, res) => {
-  globalThis.signedIn = false;
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
@@ -59,7 +59,7 @@ router.post("/:username", (req, res) => {
 
 router.get("/:username/cart", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -77,7 +77,7 @@ router.get("/:username/cart", (req, res) => {
 
 router.post("/:username/cart", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -114,7 +114,7 @@ router.post("/:username/cart", (req, res) => {
 });
 router.post("/:username/:prodid", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -139,7 +139,7 @@ router.post("/:username/:prodid", (req, res) => {
 
 router.delete("/:username/cart", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -154,12 +154,13 @@ router.delete("/:username/cart", (req, res) => {
     res.json({ redirect: `/${username}/cart` });
   }
 });
-
+*/
 router.get("/:username/:prodid", (req, res, next) => {
   let username = req.params.username;
   let prodid = req.params.prodid;
 
-  if (username == req.session.user.username) {
+  if (req.session.user) {
+    console.log(req.sessionID);
     main();
   } else {
     res.render("404");
