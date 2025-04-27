@@ -1,6 +1,17 @@
 const express = require("express");
 const session = require("express-session");
+const path = require("path");
 const ejs = require("ejs");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "../public", "images"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
 const connectionPromise = require("./connection");
 
 const router = express.Router();
@@ -19,6 +30,12 @@ router.get("/KyleAdmin", (req, res) => {
     const [orders] = await connection.query("select * from orders");
     res.render("admin", { results, customers, orders });
   }
+});
+
+router.post("/KyleAdmin", upload.single("image"), (req, res) => {
+  console.log("Post req made");
+  console.log(req.body);
+  console.log(req.file);
 });
 
 router.get("/:username", (req, res, next) => {
