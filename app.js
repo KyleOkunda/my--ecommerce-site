@@ -1,8 +1,5 @@
 const express = require("express");
 const session = require("express-session");
-const ejs = require("ejs");
-const mysql = require("mysql2/promise");
-const bcrypt = require("bcrypt");
 
 const signedOutRoutes = require("./routes/signedout.js");
 const signedInRoutes = require("./routes/signedin.js");
@@ -21,7 +18,7 @@ app.use(
   session({
     secret: "mylittlesecret",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { secure: false },
   })
 );
