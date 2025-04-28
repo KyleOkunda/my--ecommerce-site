@@ -80,7 +80,7 @@ router.get("/:username", (req, res, next) => {
     }
   }
 });
-/*
+
 router.post("/:username", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -188,7 +188,7 @@ router.delete("/:username/cart", (req, res) => {
     res.json({ redirect: `/${username}/cart` });
   }
 });
-*/
+
 router.get("/:username/:prodid", (req, res, next) => {
   let username = req.params.username;
   let prodid = req.params.prodid;
