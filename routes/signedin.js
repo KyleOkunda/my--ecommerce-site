@@ -8,13 +8,36 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "../public", "images"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    async function assignName(r) {
+      let filename = await r.body;
+      console.log(filename);
+      cb(null, filename["imageName"]);
+    }
+    assignName(req);
   },
 });
 const upload = multer({ storage });
 const connectionPromise = require("./connection");
 
 const router = express.Router();
+
+router.post("/KyleAdmin", upload.single("image"), (req, res) => {
+  async function main() {
+    const connection = await connectionPromise;
+    await connection.query(
+      "insert into products(product_name, category, prod_image_loc, no_remaining, price) values(?, ?, ?, ?, ?)",
+      [
+        req.body["productName"],
+        req.body["category"],
+        req.body["imageName"],
+        parseInt(req.body["noRemaining"]),
+        parseFloat(req.body["price"]),
+      ]
+    );
+  }
+  console.log(req.body);
+  main();
+});
 
 router.get("/KyleAdmin", (req, res) => {
   if (req.session.user.username == "KyleAdmin") {
@@ -30,12 +53,6 @@ router.get("/KyleAdmin", (req, res) => {
     const [orders] = await connection.query("select * from orders");
     res.render("admin", { results, customers, orders });
   }
-});
-
-router.post("/KyleAdmin", upload.single("image"), (req, res) => {
-  console.log("Post req made");
-  console.log(req.body);
-  console.log(req.file);
 });
 
 router.get("/:username", (req, res, next) => {

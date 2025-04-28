@@ -104,7 +104,7 @@ router.get("/favicon.ico", (req, res) => {
 
 router.get("/:prodid", (req, res, next) => {
   let prodid = req.params.prodid;
-  console.log(prodid);
+  //console.log(prodid);
 
   if (isNaN(prodid)) {
     next();
