@@ -6,8 +6,6 @@ const connectionPromise = require("./connection");
 
 const router = express.Router();
 
-globalThis.signedIn = false;
-
 router.get("/", (req, res) => {
   async function main() {
     const connection = await connectionPromise;
@@ -82,11 +80,11 @@ router.post("/signIn", (req, res) => {
         let username = results[0].username;
         let isMatch = await bcrypt.compare(req.body.password, hashedPassword);
         if (isMatch) {
-          globalThis.signedIn = true;
           req.session.user = {
             username,
             userEmail: results[0].email,
           };
+          //console.log(req.session);
 
           res.json({ resmessage: "Access granted", username });
         } else {
@@ -100,10 +98,15 @@ router.post("/signIn", (req, res) => {
   main();
 });
 
+router.get("/favicon.ico", (req, res) => {
+  res.sendStatus(204); // Respond with "No Content"
+});
+
 router.get("/:prodid", (req, res, next) => {
   let prodid = req.params.prodid;
-  console.log(globalThis.signedIn);
-  if (globalThis.signedIn) {
+  //console.log(prodid);
+
+  if (isNaN(prodid)) {
     next();
   } else {
     try {

@@ -13,6 +13,51 @@
         <div class="buttons"><button id="logout">Log out</button></div>
       </nav>
       <div class="main">
+        <div class="add">
+          <div class="add-image">
+            <div class="image">
+              <img
+                name="product-image"
+                id="image"
+                src=""
+                alt="Error no image"
+              />
+            </div>
+            <input id="file" name="image" type="file" />
+          </div>
+          <div class="product-info">
+            <input
+              id="product-name"
+              name="product-name"
+              type="text"
+              placeholder="Enter product name."
+            />
+            <input id="category" type="text" placeholder="Enter category." />
+            <input
+              id="image-name"
+              name="image-name"
+              type="text"
+              placeholder="Enter image name (with .jpeg, .jpg etc.)"
+            />
+            <input
+              id="no-remaining"
+              name="no-remaining"
+              type="number"
+              placeholder="Enter the number remaining"
+              min="20"
+            />
+            <input
+              id="price"
+              name="price"
+              type="number"
+              step="0.01"
+              placeholder="Enter the price."
+            />
+            <div class="button">
+              <button id="add" type="button">Add.</button>
+            </div>
+          </div>
+        </div>
         <div class="products">
           <h1>Products.</h1>
           <table border="1">
@@ -83,12 +128,58 @@
 
     <script>
       window.onload = () => {
+        var file = null;
         const logout = document.getElementById("logout");
         logout.addEventListener("click", () => {
           var sure = confirm("Are you sure you want t log out?");
           if (sure) {
             window.location.href = "/signIn";
           }
+        });
+
+        let imageInput = document.getElementById("file");
+        let image = document.getElementById("image");
+        imageInput.addEventListener("input", () => {
+          file = imageInput.files[0];
+          if (file) {
+            const reader = new FileReader();
+
+            reader.readAsDataURL(file);
+
+            reader.addEventListener("load", function (e) {
+              image.setAttribute("src", e.target.result);
+              image.style.height = "100%";
+              image.style.width = "100%";
+              image.style.borderRadius = "5px";
+            });
+          } else {
+            console.error("Image not loaded");
+          }
+        });
+
+        //Send request to add data to the database
+        let addBtn = document.getElementById("add");
+
+        addBtn.addEventListener("click", () => {
+          let prodName = document.getElementById("product-name").value;
+          let category = document.getElementById("category").value;
+          let imageName = document.getElementById("image-name").value;
+          let noRemaining = parseInt(
+            document.getElementById("no-remaining").value
+          );
+          let price = parseFloat(document.getElementById("price").value);
+          let uploadData = new FormData();
+          uploadData.append("image", file);
+          uploadData.append("productName", prodName);
+          uploadData.append("category", category);
+          uploadData.append("imageName", imageName);
+          uploadData.append("noRemaining", noRemaining);
+          uploadData.append("price", price);
+
+          fetch("/KyleAdmin", {
+            method: "POST",
+            body: uploadData,
+          });
         });
       };
     </script>

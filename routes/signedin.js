@@ -1,9 +1,43 @@
 const express = require("express");
 const session = require("express-session");
+const path = require("path");
 const ejs = require("ejs");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "../public", "images"));
+  },
+  filename: (req, file, cb) => {
+    async function assignName(r) {
+      let filename = await r.body;
+      console.log(filename);
+      cb(null, filename["imageName"]);
+    }
+    assignName(req);
+  },
+});
+const upload = multer({ storage });
 const connectionPromise = require("./connection");
 
 const router = express.Router();
+
+router.post("/KyleAdmin", upload.single("image"), (req, res) => {
+  async function main() {
+    const connection = await connectionPromise;
+    await connection.query(
+      "insert into products(product_name, category, prod_image_loc, no_remaining, price) values(?, ?, ?, ?, ?)",
+      [
+        req.body["productName"],
+        req.body["category"],
+        req.body["imageName"],
+        parseInt(req.body["noRemaining"]),
+        parseFloat(req.body["price"]),
+      ]
+    );
+  }
+  console.log(req.body);
+  main();
+});
 
 router.get("/KyleAdmin", (req, res) => {
   if (req.session.user.username == "KyleAdmin") {
@@ -24,7 +58,8 @@ router.get("/KyleAdmin", (req, res) => {
 router.get("/:username", (req, res, next) => {
   let username = req.params.username;
 
-  if (username == req.session.user.username) {
+  if (req.session.user) {
+    console.log(req.sessionID);
     main();
   } else {
     res.render("404");
@@ -47,7 +82,6 @@ router.get("/:username", (req, res, next) => {
 });
 
 router.post("/:username", (req, res) => {
-  globalThis.signedIn = false;
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
@@ -59,7 +93,7 @@ router.post("/:username", (req, res) => {
 
 router.get("/:username/cart", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -77,7 +111,7 @@ router.get("/:username/cart", (req, res) => {
 
 router.post("/:username/cart", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -114,7 +148,7 @@ router.post("/:username/cart", (req, res) => {
 });
 router.post("/:username/:prodid", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -139,7 +173,7 @@ router.post("/:username/:prodid", (req, res) => {
 
 router.delete("/:username/cart", (req, res) => {
   let username = req.params.username;
-  if (username == req.session.user.username) {
+  if (req.session.user) {
     main();
   } else {
     res.render("404");
@@ -159,7 +193,8 @@ router.get("/:username/:prodid", (req, res, next) => {
   let username = req.params.username;
   let prodid = req.params.prodid;
 
-  if (username == req.session.user.username) {
+  if (req.session.user) {
+    console.log(req.sessionID);
     main();
   } else {
     res.render("404");
